@@ -172,6 +172,8 @@ Each row specifies an action, its purpose or decision rule, and the run artifact
 | P12.05 | **Verify delivery.** Check archive integrity and links; for Git delivery confirm the remote commit and files. State exactly what was delivered and any access limitations. | `report.md` |
 | P12.06 | **Make handoff self-contained.** Record workflow version, case state, revised verdicts and the next discriminating evidence so another model can resume without chat memory. | `case.json` |
 
+For Pete's authorized weekly reports, P12.05–P12.06 also follow [the market handoff contract](docs/MARKET_HANDOFF.md): save and verify first, send the complete versioned report, record receipt and durable intake separately, and preserve uncertainty and forecast availability cutoffs. This conditional integration does not add a schedule or change other investigations' authorized recipients.
+
 ## Conditional domain branches
 
 - **Aircraft/navigation:** [aircraft-gnss.md](playbooks/aircraft-gnss.md).

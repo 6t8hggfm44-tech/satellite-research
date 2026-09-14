@@ -46,6 +46,7 @@ The full [workflow chart and 78-step register](WORKFLOW.md) includes the decisio
 | [Scripts](scripts/README.md) | Create an isolated case, check repository consistency and build a file-hash manifest. |
 | [Validation](VALIDATION.md) | Repository checks and an independent synthetic satellite scenario. |
 | [Pilot pipeline](docs/PIPELINE.md) | Architecture, collection cadence, provisional detectors, local service setup, review commands, coverage limits and replay. |
+| [Weekly market handoff](docs/MARKET_HANDOFF.md) | Global research scope, save-before-send delivery, canonical research intake, receipt verification and corrections. |
 
 ## Run the collection pilot
 
