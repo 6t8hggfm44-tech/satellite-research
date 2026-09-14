@@ -151,6 +151,23 @@ rm "$HOME/Library/LaunchAgents/com.satellite-research.collector.plist"
 
 The data directory is retained. To restart an unloaded service whose definition is still installed, run `launchctl bootstrap` again. Unload an existing service before replacing its definition.
 
+### Assisted installation and recovery
+
+The [user-run installer](../scripts/install_collector_service.py) validates and installs the prepared definition without stopping a working collector:
+
+```sh
+python3 scripts/install_collector_service.py "$RESEARCH_PLIST" --check-only
+python3 scripts/install_collector_service.py "$RESEARCH_PLIST"
+```
+
+Run the second command as the ordinary logged-in user, without `sudo`. The check-only command makes no changes. If an assistant cannot obtain the required folder permission, the user must run the installer directly; launching it through another application is not a substitute for permission.
+
+The installer refuses a conflicting existing definition and accepts an identical one. It enables only this service and registers it if absent. It never kills the current collector or removes its lock. When a manually started collector is still running, macOS's job may wait through throttled lock failures; `KeepAlive` lets it take over after that collector exits. This is reported as **registered awaiting takeover**, rather than verified managed collection.
+
+Registration and collection health are separate. The installer compares the PID reported by `launchctl` with a recent collector heartbeat and checks the actual writer lock. Even a verified managed process can report unavailable GEV, partial acquisition or blocked capacity. The result is saved as `autostart-installation.json` in the data directory. If no managed heartbeat is available yet, registration is reported as unverified collection. Inspect status later; never infer successful acquisition from an installed plist alone.
+
+Automatic recovery covers process exit and login while the user's session is active. It does not detect every hung process, start GEV, wake the Mac, or recover missing observations. Unload the job before intentionally stopping managed collection, because `KeepAlive` restarts even clean exits. The separate weekly model investigation and its missed-run approval rules are unaffected.
+
 ## Review and investigate
 
 Create a new package directory for each report:

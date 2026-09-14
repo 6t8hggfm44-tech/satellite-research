@@ -2,6 +2,8 @@
 
 The executable collection and screening pipeline is documented in [the pipeline guide](../docs/PIPELINE.md). Its entry point is `python3 -m satresearch`; it is separate from the case-document helpers below. `prepare_collector_service.py` creates a reviewable macOS service file and does not install or start it.
 
+`install_collector_service.py` is an explicit user-run macOS installer for that prepared file. Its `--check-only` mode makes no changes. Normal installation enables login/exit recovery for the collector and records whether macOS-managed collection was verified. It never terminates an existing collector, changes Mac sleep settings or modifies the weekly report schedule.
+
 These scripts use Python **3.9 or newer** and its standard library. They do not contact GEV, fetch external data or execute the scientific analysis automatically. The model chooses the appropriate domain methods and records their actual execution.
 
 ## Initialize a run
