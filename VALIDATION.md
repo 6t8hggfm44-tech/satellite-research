@@ -21,7 +21,9 @@ Two publishers displayed the same two propagated positions at one instant. The s
 
 The executed calculations found an approximately **2.49 km projected surface separation** but approximately **19,500 km nominal three-dimensional separation** under the stated spherical reference assumption. The result remained essentially unchanged over the declared reference-radius sensitivity values. An independent Cartesian calculation agreed, and an isolated replay produced byte-identical metrics.
 
-The evaluation recognized one documented upstream data chain, distinguished source retrieval age from orbit epoch, and left maneuver, actual close approach and commercial-impact tests unavailable without the missing evidence. No live GEV query, orbital propagation, encounter probability or actual service-impact analysis was claimed. The geometry checked consistency of fabricated inputs, not real spacecraft positions.
+The evaluation delivered a finished report with four executed offline tests and two explicitly blocked tests. It recognized one documented upstream data chain, distinguished source retrieval age from orbit epoch, and left maneuver, actual close approach and commercial-impact tests unavailable without the missing evidence. No live GEV query, orbital propagation, encounter probability or actual service-impact analysis was claimed. The geometry checked consistency of fabricated inputs, not real spacecraft positions.
+
+The review identified three documentation issues that were corrected: the playbooks now use the schema's `not_started` execution status; the workflow explicitly distinguishes P07 exploratory work from later prospective tests; and offline P02 audits can be partial without pretending to query live GEV. These are instruction clarifications, not new scientific results.
 
 This is a bounded behavioral check in a materially different domain. It is not a statistical evaluation of all models or a guarantee of future behavior. Other models still need access to the repository, relevant source data and the appropriate integration.
 

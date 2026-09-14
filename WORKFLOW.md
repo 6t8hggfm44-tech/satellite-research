@@ -26,6 +26,10 @@ flowchart TD
 
 The machine-readable step register is [workflow.json](workflow.json), version **1.0.0**. Stages may overlap where their inputs are independent; a hypothesis can be proposed before mapping, for example. Keep dependency-sensitive operations sequential, and document any skipped or unavailable step. An unavailable GEV writer does not block read-only analysis: record the map step as unavailable and still deliver the report.
 
+For an explicitly offline run, P02 can be a **partial capability/provenance audit of the supplied export**. Record that no live GEV query was performed, what the supplied metadata establish, and which runtime facts remain unknown. Continue the analysis supported by the supplied evidence.
+
+P07 contains discovery and exploratory calculations. Record their choices before calculating where practical, and state what data were already inspected. P09–P10 formalize competing hypotheses and subsequent tests. Do not retroactively describe an exploratory result as a prospective or held-out test; preserve its chronology and create a new plan version for additional tests.
+
 ## Step register
 
 Each row specifies an action, its purpose or decision rule, and the run artifact that records it. Artifact names refer to files inside an investigation run, initialized from [templates](templates/).
