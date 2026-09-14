@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "domain": null,
+  "run_id": null,
+  "report_version": 1,
+  "report_kind": "final_hypothesis_test",
+  "generated_at_utc": null,
+  "available_at_utc": null,
+  "event_window_utc": {"start": null, "end": null},
+  "report_path": "Report.md",
+  "report_sha256": null,
+  "manifest_path": "manifest.json",
+  "manifest_sha256": null,
+  "workflow_commit": null,
+  "geography": [],
+  "actual_coverage": {},
+  "sources": [],
+  "claims": [],
+  "supersedes": [],
+  "limitations": []
+}

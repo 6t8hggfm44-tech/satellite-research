@@ -36,6 +36,8 @@ When this repository's local collector is configured, read [the pipeline guide](
 
 ## Completion and handoff
 
+For cross-domain weather/energy reconciliation, read [RECONCILIATION.md](docs/RECONCILIATION.md). Freeze the independent GEV report first, retain source ancestry and actual availability cutoffs, and prepare the optional versioned report envelope for later synthesis. An input audit is not a causal test.
+
 For Pete's authorized weekly integration, follow [the market handoff contract](docs/MARKET_HANDOFF.md) after saving and verifying the final report. Deliver the complete versioned report to the configured Market Model Cycle recipient and verify receipt separately from durable intake. Global research scope does not imply global raw collection. Other invocations retain their explicitly authorized recipients and scope.
 
 Stop the current round when the declared scope is covered, material numbers and source applicability have been checked, the feasible high-value tests are executed, remaining tests are explicitly blocked/unavailable/not applicable, and another search is unlikely to change the report without new access or data. Do not broaden indefinitely or silently start a monitor.
