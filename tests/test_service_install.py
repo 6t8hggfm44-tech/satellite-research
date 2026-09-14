@@ -188,14 +188,15 @@ class ServiceInstallTests(unittest.TestCase):
             else:
                 self.assertEqual(call[1], "gui/501/" + installer.LABEL)
 
-    def test_existing_collector_is_preserved_in_standby(self):
+    def test_existing_collector_is_preserved_without_claiming_takeover_ready(self):
         self.status(pid=57732, updated_at=time.time())
         status_before = (self.data / "service-status.json").read_bytes()
         fake = SimulatedLaunchctl(self.spec)
         with self.held_lock() as lock:
             before = (lock.read_bytes(), lock.stat().st_ino)
             result = self.install(fake)
-            self.assertEqual(result["state"], "registered_awaiting_takeover")
+            self.assertEqual(result["state"], "registered_collection_unverified")
+            self.assertTrue(result["existing_collector_active"])
             self.assertFalse(result["collection_healthy"])
             self.assertFalse(result["current_process_terminated"])
             self.assertFalse(result["sleep_settings_changed"])
@@ -251,14 +252,39 @@ class ServiceInstallTests(unittest.TestCase):
             self.assertEqual(installer.inspect_service(output, self.data, now=1000)["state"],
                              "launchd_collector_verified")
 
-    def test_other_or_unknown_launchd_pid_is_standby_only(self):
+    def test_other_or_unknown_launchd_pid_does_not_verify_takeover_readiness(self):
         self.status()
         with self.held_lock():
             for output in ("pid = 67890\n", "state = waiting\n"):
                 with self.subTest(output=output):
                     result = installer.inspect_service(output, self.data, now=1000)
-                    self.assertEqual(result["state"], "registered_awaiting_takeover")
+                    self.assertEqual(result["state"], "registered_collection_unverified")
+                    self.assertTrue(result["existing_collector_active"])
                     self.assertFalse(result["collection_healthy"])
+
+    def test_failed_launch_is_not_hidden_by_healthy_manual_collector(self):
+        # Reproduces the observed import-failure shape without executing a job.
+        self.status(pid=57732)
+        with self.held_lock():
+            for exit_code in (1, 2):
+                with self.subTest(exit_code=exit_code):
+                    output = "state = spawn scheduled\nlast exit code = %d\n" % exit_code
+                    result = installer.inspect_service(output, self.data, now=1000)
+                    self.assertEqual(result["state"], "registered_startup_failed")
+                    self.assertEqual(result["last_exit_code"], exit_code)
+                    self.assertTrue(result["existing_collector_active"])
+                    self.assertIsNone(result["launchd_pid"])
+                    self.assertFalse(result["collection_healthy"])
+
+    def test_prior_failed_exit_does_not_override_current_verified_collector(self):
+        self.status()
+        with self.held_lock():
+            output = "state = running\npid = 12345\nlast exit code = 1\n"
+            result = installer.inspect_service(output, self.data, now=1000)
+            self.assertEqual(result["state"], "launchd_collector_verified")
+            self.assertEqual(result["last_exit_code"], 1)
+            self.assertFalse(result["existing_collector_active"])
+            self.assertTrue(result["collection_healthy"])
 
     def test_missing_or_invalid_status_is_unverified(self):
         path = self.data / "service-status.json"

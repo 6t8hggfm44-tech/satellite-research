@@ -72,6 +72,9 @@ def inspect_service(job_output, data, now=None):
     now = time.time() if now is None else now
     match = re.search(r"^\s*pid = ([0-9]+)\s*$", job_output, re.MULTILINE)
     job_pid = int(match.group(1)) if match else None
+    exit_match = re.search(r"^\s*last exit code = (-?[0-9]+)\s*$", job_output, re.MULTILINE)
+    last_exit = int(exit_match.group(1)) if exit_match else None
+    state_match = re.search(r"^\s*state = (.+?)\s*$", job_output, re.MULTILINE)
     try:
         status = json.loads((Path(data) / "service-status.json").read_text())
     except (FileNotFoundError, ValueError):
@@ -83,13 +86,16 @@ def inspect_service(job_output, data, now=None):
     fresh = age is not None and 0 <= age <= 180
     lock_held = collector_locked(data)
     same_pid = job_pid is not None and status.get("pid") == job_pid
+    existing_active = bool(lock_held and fresh and status.get("status") == "running" and not same_pid)
     if same_pid and fresh and lock_held and status.get("status") == "running":
         state = "launchd_collector_verified"
-    elif lock_held and fresh and status.get("status") == "running" and not same_pid:
-        state = "registered_awaiting_takeover"
+    elif job_pid is None and last_exit is not None and last_exit != 0:
+        state = "registered_startup_failed"
     else:
         state = "registered_collection_unverified"
     return {"state": state, "launchd_pid": job_pid, "observed_service_pid": status.get("pid"),
+            "last_exit_code": last_exit, "launchd_state": state_match.group(1) if state_match else None,
+            "existing_collector_active": existing_active,
             "heartbeat_age_s": age, "writer_lock_held": lock_held,
             "last_cycle_status": status.get("last_cycle_status"),
             "collection_healthy": state == "launchd_collector_verified" and status.get("last_cycle_status") == "completed"}
@@ -149,15 +155,17 @@ def main(argv=None):
             return 0
         result = install(args.definition)
         print("Automatic login and exit recovery are registered with macOS.")
-        if result["state"] == "registered_awaiting_takeover":
-            print("Your current collector is still running. macOS will take over after that process exits.")
-        elif result["state"] == "launchd_collector_verified":
+        if result["state"] == "launchd_collector_verified":
             print("Verified the macOS-managed collector. Latest collection result: " + str(result["last_cycle_status"]))
+        elif result["state"] == "registered_startup_failed":
+            print("The registered job exited with an error. Inspect service.stderr.log; automatic recovery is not verified.")
         else:
             print("Registration succeeded; a fresh macOS-managed collection cycle has not yet been verified.")
+        if result["existing_collector_active"]:
+            print("The existing collector is still active. That does not prove the new job can start or take over.")
         print("Collection still requires an awake Mac and a running GEV. Weekly approval rules are unchanged.")
         print(json.dumps(result, indent=2))
-        return 0
+        return 2 if result["state"] == "registered_startup_failed" else 0
     except (OSError, ValueError, RuntimeError, subprocess.TimeoutExpired) as exc:
         print("Automatic restart installation was not fully verified: " + str(exc), file=sys.stderr)
         print("The installer did not terminate the existing collector or remove its lock.", file=sys.stderr)
