@@ -12,6 +12,8 @@ This repository grants no new access or authority. It does not activate Executiv
 
 ## Operating method
 
+When this repository's local collector is configured, read [the pipeline guide](docs/PIPELINE.md) and use its preserved observations, capture register, candidate queue and review history before repeating source requests. The collector is a bounded, uncalibrated screening pilot. It does not complete the hypothesis workflow by itself. Record the installed code version separately from the workflow version. Respect collection cadence and provider cooldowns; never infer continuous coverage from a running process. Read report input-cap warnings and actual per-day coverage before calling a weekly search complete. Keep machine configuration and traffic evidence out of Git unless separately authorized.
+
 1. Create or resume one isolated run. Record the original question, scope, UTC event windows, workflow version, sources and limitations. Use the supplied templates; preserve old versions when selection rules change.
 2. Use GEV as the observation workspace when available. Discover its actual source capabilities first. Distinguish direct GEV findings from externally reported leads and from background context. If GEV is unavailable, record that limitation; do not imply a live query occurred. For an explicitly offline case, a partial audit of the supplied export's provenance can satisfy the feasible part of P02; proceed with supported analysis while marking unknown runtime capabilities.
 3. Preserve event-time source records before transformation. Keep source identity, position method, retrieval time, measurement time, field age when known, coverage, provider/software version and hashes. Unknown remains unknown.

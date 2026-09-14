@@ -6,3 +6,9 @@ runs/
 .env.*
 *.key
 *.pem
+data/
+config/local.json
+*.sqlite3*
+.venv/
+.pytest_cache/
+*.plist

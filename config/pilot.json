@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "profile": "bounded-regional-pilot",
+  "aircraft_interval_s": 300,
+  "trace_interval_s": 3600,
+  "satellite_interval_s": 21600,
+  "traces_per_region": 3,
+  "max_response_bytes": 16777216,
+  "request_timeout_s": 35,
+  "max_data_bytes": 10737418240,
+  "minimum_free_bytes": 1073741824,
+  "baseline_days": 30,
+  "max_analysis_records": 250000,
+  "regions": [
+    {"id": "baltic-nordic", "name": "Baltic and Nordic sample", "lat": 60, "lon": 25, "bbox": [16, 55, 34, 67]},
+    {"id": "eastern-mediterranean", "name": "Eastern Mediterranean sample", "lat": 34, "lon": 32, "bbox": [25, 29, 39, 39]},
+    {"id": "gulf", "name": "Gulf sample", "lat": 26, "lon": 54, "bbox": [47, 21, 61, 31]}
+  ],
+  "satellite_groups": ["stations", "weather", "gps-ops"],
+  "aircraft_detectors": {},
+  "satellite_detectors": {},
+  "notes": [
+    "Pilot thresholds are uncalibrated screening rules, not probabilities or causal findings.",
+    "Regional GEV fallback covers approximately 250 nautical miles around each anchor, not the whole configured rectangle.",
+    "Five-minute snapshots miss short events. Hourly traces cover only a rotating selected cohort where available.",
+    "Satellite checks detect catalog/element issues; no maneuver, conjunction, targeting or intent determination is performed.",
+    "No paid source, credential copying, external publication or raw radio-message collection is configured."
+  ]
+}

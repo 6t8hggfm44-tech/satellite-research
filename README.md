@@ -2,6 +2,8 @@
 
 A reusable, model-neutral workflow for finding unusual air or satellite activity through **God’s Eye View (GEV)**, investigating competing explanations, executing realistic tests, and delivering a source-linked hypothesis test report.
 
+The repository also includes a [local collection and screening pilot](docs/PIPELINE.md): a lightweight Python service that preserves bounded GEV samples, builds historical comparisons and produces a review queue with frozen calculation replay. It runs without a GPT call at each capture. Its provisional detections are starting points for the investigation workflow, not established causes or operational findings.
+
 The workflow was extracted from the investigation that began with this request:
 
 > The God's Eye View app that we integrated, give me a short list of significant aerial traffic and/or satellite traffic over somewhere on the planet that's an anomaly that might be worth looking into for trade or military purposes.
@@ -43,6 +45,24 @@ The full [workflow chart and 78-step register](WORKFLOW.md) includes the decisio
 | [Worked final report](examples/finland-gnss/hypothesis-test-results.md) | The actual completed test report, with a portability note. |
 | [Scripts](scripts/README.md) | Create an isolated case, check repository consistency and build a file-hash manifest. |
 | [Validation](VALIDATION.md) | Repository checks and an independent synthetic satellite scenario. |
+| [Pilot pipeline](docs/PIPELINE.md) | Architecture, collection cadence, provisional detectors, local service setup, review commands, coverage limits and replay. |
+
+## Run the collection pilot
+
+With Python 3.9+ and a running local GEV, run from the checkout:
+
+```sh
+python3 -m satresearch --data-dir data/pilot doctor
+python3 -m satresearch --data-dir data/pilot collect
+python3 -m satresearch --data-dir data/pilot status
+python3 -m satresearch --data-dir data/pilot report --days 7 --output runs/pilot-week-01
+```
+
+Read the generated `Report.md` or open `report.html` in that new report directory. The [pipeline guide](docs/PIPELINE.md) explains foreground collection, the reviewable macOS LaunchAgent preparation/install/start/stop steps, analyst labels, integrity checks and offline imports. The collector does not install itself or start GEV.
+
+The default sample covers three regional aircraft anchors every five minutes, up to nine rotating aircraft traces hourly, and three satellite catalog groups every six hours. Dense selected traces support the aircraft continuity screens; five-minute snapshots exceed their default 120-second gap limit. Computer sleep, source availability and sampling gaps remain visible limitations. This is not full global surveillance.
+
+The pilot builds up to a 30-day prior-window baseline. The historical aircraft detector needs at least 30 matched samples across three distinct prior UTC days, checked per entity and comparison group; this is eligibility, not calibration. Collection pauses at the default 10 GiB data threshold or low free space, preserving existing evidence. Screening caps each input set at 250,000 records and marks truncation explicitly. Empty or partial reports cannot establish normal traffic in unobserved areas.
 
 ## Create an investigation folder
 
