@@ -1,0 +1,581 @@
+{
+  "schemaVersion": 1,
+  "workflowVersion": "1.0.0",
+  "name": "GEV anomaly research",
+  "stages": [
+    {
+      "id": "P01",
+      "title": "Define the investigation",
+      "dependsOn": [],
+      "steps": [
+        {
+          "id": "P01.01",
+          "action": "Capture the request and decision",
+          "method": "Record the original question, region if supplied, time horizon, and what trade or defense question the evidence could inform.",
+          "artifact": "case.json"
+        },
+        {
+          "id": "P01.02",
+          "action": "Choose the delivery scope",
+          "method": "In this repository a broad discovery request defaults to shortlist, selected-case investigation, executable tests and a final report. Honor an explicit shortlist-only or narrower request.",
+          "artifact": "case.json"
+        },
+        {
+          "id": "P01.03",
+          "action": "Resolve only material ambiguity",
+          "method": "Infer routine choices and state assumptions. Ask only when the answer changes scope or needed authority; continue independent work.",
+          "artifact": "case.json"
+        },
+        {
+          "id": "P01.04",
+          "action": "Separate dates and units",
+          "method": "Record event dates, retrieval time, source timezone/precision, coordinate reference and measurement units. Convert supported timestamps to UTC while retaining originals.",
+          "artifact": "source-register.json"
+        },
+        {
+          "id": "P01.05",
+          "action": "Set bounded completion criteria",
+          "method": "Define what counts as a completed search and test round. A defensible inconclusive or no-anomaly report is a valid endpoint.",
+          "artifact": "case.json"
+        }
+      ]
+    },
+    {
+      "id": "P02",
+      "title": "Verify GEV and available evidence",
+      "dependsOn": [
+        "P01"
+      ],
+      "steps": [
+        {
+          "id": "P02.01",
+          "action": "Discover the installed integration",
+          "method": "Read relevant GEV evidence instructions and available tool descriptions; distinguish local app, read-only connector and external research capabilities.",
+          "artifact": "source-register.json"
+        },
+        {
+          "id": "P02.02",
+          "action": "Read source capabilities first",
+          "method": "Call the available GEV source inventory before queries. Record health, pagination, provenance, coverage, retention and supported history endpoints.",
+          "artifact": "source-register.json"
+        },
+        {
+          "id": "P02.03",
+          "action": "Locate the running app when needed",
+          "method": "Discover current runtime and active case rather than reusing an old host or port. Inspect existing cases before editing them.",
+          "artifact": "case.json"
+        },
+        {
+          "id": "P02.04",
+          "action": "Probe requested feeds",
+          "method": "Query relevant aircraft, aircraft classification and satellite feeds within supported limits. Treat an interface validation error separately from an upstream request failure.",
+          "artifact": "source-register.json"
+        },
+        {
+          "id": "P02.05",
+          "action": "Identify what each record means",
+          "method": "Distinguish observed aircraft position, MLAT solution, satellite catalog element, propagated position, official notice and an external lead.",
+          "artifact": "source-register.json"
+        },
+        {
+          "id": "P02.06",
+          "action": "Audit actual use",
+          "method": "Record which conclusions came from GEV and which came from outside reports. Never label a web lead as an anomaly detected in GEV.",
+          "artifact": "source-register.json"
+        },
+        {
+          "id": "P02.07",
+          "action": "Choose an access fallback",
+          "method": "Use permitted APIs, local provider routes or ordinary published viewers. Record missing access and stop dependent tests when essential evidence is unavailable.",
+          "artifact": "source-register.json"
+        }
+      ]
+    },
+    {
+      "id": "P03",
+      "title": "Discover and rank leads",
+      "dependsOn": [
+        "P02"
+      ],
+      "steps": [
+        {
+          "id": "P03.01",
+          "action": "Search relevant domains in parallel",
+          "method": "Split independent aircraft, satellite, source/provenance and external-context checks when useful. Give each a bounded output.",
+          "artifact": "shortlist.md"
+        },
+        {
+          "id": "P03.02",
+          "action": "Inspect GEV observations",
+          "method": "Search selected regions or a documented global sample. Retain query bounds, returned counts, pagination and position age; one snapshot is not a baseline.",
+          "artifact": "source-register.json"
+        },
+        {
+          "id": "P03.03",
+          "action": "Find dated public context",
+          "method": "Check primary regulators, operators, official statistics and original technical analyses. Preserve event date separately from publication date.",
+          "artifact": "source-register.json"
+        },
+        {
+          "id": "P03.04",
+          "action": "Check ordinary explanations",
+          "method": "Compare with known routes, schedules, maneuvers, sensor coverage, software behavior and service events as applicable.",
+          "artifact": "shortlist.md"
+        },
+        {
+          "id": "P03.05",
+          "action": "Assign evidence status",
+          "method": "Label each lead observed candidate, reported lead, context-only, unsupported, or unobservable. Record missing baseline or raw data explicitly.",
+          "artifact": "shortlist.md"
+        },
+        {
+          "id": "P03.06",
+          "action": "Rank by investigation value",
+          "method": "Consider evidence quality, deviation from a relevant baseline, plausible operational significance and availability of a discriminating test. Avoid invented precise probabilities.",
+          "artifact": "shortlist.md"
+        },
+        {
+          "id": "P03.07",
+          "action": "Select a case",
+          "method": "Follow the user selection; otherwise choose the best-supported, testable case and explain the choice. If none qualifies, produce a negative or evidence-gap report.",
+          "artifact": "case.json"
+        }
+      ]
+    },
+    {
+      "id": "P04",
+      "title": "Freeze the case and comparison plan",
+      "dependsOn": [
+        "P03"
+      ],
+      "steps": [
+        {
+          "id": "P04.01",
+          "action": "Assign a stable case ID",
+          "method": "Create an isolated run with the workflow version, scope, selected entities and original lead links.",
+          "artifact": "case.json"
+        },
+        {
+          "id": "P04.02",
+          "action": "Fix event windows and region",
+          "method": "Define study windows and geographic/altitude/orbital bounds before extending observations. Do not move windows merely to obtain a favorable result.",
+          "artifact": "test-plan.json"
+        },
+        {
+          "id": "P04.03",
+          "action": "Define units and denominators",
+          "method": "Specify record, aircraft, pass, event and duration separately. Identify the eligible population or acknowledge a convenience sample.",
+          "artifact": "test-plan.json"
+        },
+        {
+          "id": "P04.04",
+          "action": "Define comparators and exclusions",
+          "method": "Choose physically relevant time, place, equipment, altitude or orbital matches. Keep missing, excluded, source-switched and healthy records distinct.",
+          "artifact": "test-plan.json"
+        },
+        {
+          "id": "P04.05",
+          "action": "Version changes to selection",
+          "method": "Record amendments and reasons before retrieving or examining the next batch. Preserve earlier versions; distinguish discovery from confirmation.",
+          "artifact": "test-plan.json"
+        }
+      ]
+    },
+    {
+      "id": "P05",
+      "title": "Acquire and preserve event-time evidence",
+      "dependsOn": [
+        "P04"
+      ],
+      "steps": [
+        {
+          "id": "P05.01",
+          "action": "Capture source responses",
+          "method": "Save allowed raw response bodies or structured snapshots with URLs, query parameters, timestamps, status and schema/provider version.",
+          "artifact": "source-register.json"
+        },
+        {
+          "id": "P05.02",
+          "action": "Retrieve complete available histories",
+          "method": "Use supported pagination or the documented full-history endpoint. Count raw records and record actual first/last event coverage.",
+          "artifact": "source-register.json"
+        },
+        {
+          "id": "P05.03",
+          "action": "Resolve identity per event",
+          "method": "Bind identifiers, registration/catalog identity, callsign or mission label to the relevant interval; do not apply the latest flight label to an earlier flight.",
+          "artifact": "source-register.json"
+        },
+        {
+          "id": "P05.04",
+          "action": "Preserve refreshes separately",
+          "method": "Keep previous and refreshed versions with hashes and retrieval times. Use an explicit latest-version rule for aggregate counts.",
+          "artifact": "source-register.json"
+        },
+        {
+          "id": "P05.05",
+          "action": "Capture source documentation",
+          "method": "Read the applicable field definitions and, when material, pinned decoder/serialization or propagation versions. Do not silently substitute current code.",
+          "artifact": "source-register.json"
+        },
+        {
+          "id": "P05.06",
+          "action": "Log failures precisely",
+          "method": "Preserve tool validation failure, DNS/network failure, HTTP status, empty payload, unavailable history and unsupported browser export as distinct outcomes.",
+          "artifact": "source-register.json"
+        },
+        {
+          "id": "P05.07",
+          "action": "Check archive coverage before corroborating",
+          "method": "Verify that another provider actually covers the original event. Later flights or a live page are not historical corroboration.",
+          "artifact": "source-register.json"
+        }
+      ]
+    },
+    {
+      "id": "P06",
+      "title": "Normalize and audit the observations",
+      "dependsOn": [
+        "P05"
+      ],
+      "steps": [
+        {
+          "id": "P06.01",
+          "action": "Verify saved integrity",
+          "method": "Check copied bytes/hashes, parseability, ordering, duplicates, timestamps, units and coordinate ranges without rewriting preserved inputs.",
+          "artifact": "test-results.json"
+        },
+        {
+          "id": "P06.02",
+          "action": "Keep unknown values unknown",
+          "method": "Separate zero, missing, invalid, stale-marked and not-applicable values. Quality categories are not measurements of actual error.",
+          "artifact": "test-results.json"
+        },
+        {
+          "id": "P06.03",
+          "action": "Separate sources and field ages",
+          "method": "Retain position-source labels and explicit state objects. A fresh position does not establish freshness of every metadata field.",
+          "artifact": "test-results.json"
+        },
+        {
+          "id": "P06.04",
+          "action": "Flag transitions and gaps",
+          "method": "Mark source changes, long gaps, time discontinuities and relevant stale flags. Do not create measured paths by joining incompatible records.",
+          "artifact": "test-results.json"
+        },
+        {
+          "id": "P06.05",
+          "action": "Audit completeness and bias",
+          "method": "Compare snapshot age with position age, identify ground transmitters, check selection through potentially corrupted positions and account for unobserved entities.",
+          "artifact": "test-results.json"
+        },
+        {
+          "id": "P06.06",
+          "action": "Construct eligible analysis sets",
+          "method": "Apply documented region, event, altitude, source and metadata rules; record retained and excluded counts at each step.",
+          "artifact": "test-results.json"
+        }
+      ]
+    },
+    {
+      "id": "P07",
+      "title": "Quantify the candidate anomaly",
+      "dependsOn": [
+        "P06"
+      ],
+      "steps": [
+        {
+          "id": "P07.01",
+          "action": "Calculate basic deviations",
+          "method": "Measure durations, geographic or orbital residuals, source disagreement, implied motion and quality-state changes using the appropriate domain adapter.",
+          "artifact": "test-results.json"
+        },
+        {
+          "id": "P07.02",
+          "action": "Separate persistence from extremes",
+          "method": "Distinguish a single jump from a sustained or recurrent branch. Describe spread, range, sample spacing and retained duration honestly.",
+          "artifact": "test-results.json"
+        },
+        {
+          "id": "P07.03",
+          "action": "Compare like with like",
+          "method": "Seek within-entity normal/abnormal passes and contemporaneous controls. Expose time/location/altitude/equipment confounding.",
+          "artifact": "test-results.json"
+        },
+        {
+          "id": "P07.04",
+          "action": "Check internal consistency",
+          "method": "Compare coordinate-derived motion and reported motion; inspect retained metadata and source-specific branches. Do not treat derived fields as independent sensors.",
+          "artifact": "test-results.json"
+        },
+        {
+          "id": "P07.05",
+          "action": "Label exploratory models",
+          "method": "If fitting loops, trends or changepoints, preserve fitting choices, residuals and sensitivity. A fitted center or period is not a source or intent fingerprint.",
+          "artifact": "test-results.json"
+        },
+        {
+          "id": "P07.06",
+          "action": "State the measurement-level finding",
+          "method": "Describe exactly what is anomalous in the saved evidence before proposing its physical or operational cause.",
+          "artifact": "report.md"
+        }
+      ]
+    },
+    {
+      "id": "P08",
+      "title": "Create and verify the GEV evidence view",
+      "dependsOn": [
+        "P07"
+      ],
+      "steps": [
+        {
+          "id": "P08.01",
+          "action": "Prepare a source-linked case",
+          "method": "When GEV map writing is available and within scope, construct case metadata, source entries, UTC timeline, reported-location pins and defensible paths.",
+          "artifact": "gev-case.json"
+        },
+        {
+          "id": "P08.02",
+          "action": "Preserve location uncertainty",
+          "method": "Distinguish reported, independently verified, approximate and unknown positions. In a positioning anomaly, provider coordinates do not mean true position.",
+          "artifact": "gev-case.json"
+        },
+        {
+          "id": "P08.03",
+          "action": "Segment paths by provenance",
+          "method": "Keep ADS-B, MLAT and other branches separate; split unsupported gaps and transitions. Never draw an inferred route as measured motion.",
+          "artifact": "gev-case.json"
+        },
+        {
+          "id": "P08.04",
+          "action": "Validate and publish locally",
+          "method": "Use the installed case contract and publisher, preserve other cases and backups, and honor filesystem permissions. Do not use a read-only connector as a writer.",
+          "artifact": "gev-case.json"
+        },
+        {
+          "id": "P08.05",
+          "action": "Verify the rendered case",
+          "method": "Open the actual case. Check title, selected evidence, pin locations, source details, filters, timeline and relevant original-source links.",
+          "artifact": "test-results.json"
+        },
+        {
+          "id": "P08.06",
+          "action": "Verify any accompanying visualization",
+          "method": "Check source visibility controls, legends, units, timestamps and served report/data bytes. Restore the complete intended view after testing filters.",
+          "artifact": "test-results.json"
+        }
+      ]
+    },
+    {
+      "id": "P09",
+      "title": "Form competing, falsifiable hypotheses",
+      "dependsOn": [
+        "P08"
+      ],
+      "steps": [
+        {
+          "id": "P09.01",
+          "action": "Build a causal alternative set",
+          "method": "Include real-world change, measurement/processing artifact, equipment behavior, environmental effects and ordinary operations where relevant. Hypotheses may coexist.",
+          "artifact": "hypotheses.json"
+        },
+        {
+          "id": "P09.02",
+          "action": "Specify observable predictions",
+          "method": "For each hypothesis state what should differ, in which records, at what time and relative to which comparator.",
+          "artifact": "hypotheses.json"
+        },
+        {
+          "id": "P09.03",
+          "action": "Specify falsifiers and discriminating evidence",
+          "method": "State a result that would weaken the claim and the evidence needed to distinguish it from its strongest alternative.",
+          "artifact": "hypotheses.json"
+        },
+        {
+          "id": "P09.04",
+          "action": "Record dependencies and confounders",
+          "method": "Distinguish publisher, feeder, receiver, decoder and onboard independence. Record asynchronous fields and shared software/configuration.",
+          "artifact": "hypotheses.json"
+        },
+        {
+          "id": "P09.05",
+          "action": "Choose feasible tests",
+          "method": "Prioritize passive tests with available data and high ability to distinguish causes. Mark unavailable raw-message or onboard tests explicitly.",
+          "artifact": "test-plan.json"
+        },
+        {
+          "id": "P09.06",
+          "action": "Separate implications from mechanism",
+          "method": "Identify the evidence needed for trade impact, resilience consequences or attribution; anomalous geometry alone does not establish these.",
+          "artifact": "hypotheses.json"
+        }
+      ]
+    },
+    {
+      "id": "P10",
+      "title": "Execute robustness and external tests",
+      "dependsOn": [
+        "P09"
+      ],
+      "steps": [
+        {
+          "id": "P10.01",
+          "action": "Record a test plan before calculating",
+          "method": "Version the input set, event window, thresholds, expected outcomes and eligibility rules; label post-discovery sensitivity analysis honestly.",
+          "artifact": "test-plan.json"
+        },
+        {
+          "id": "P10.02",
+          "action": "Test simple local explanations",
+          "method": "Check source-label consistency, stale flags, ordering, frozen metadata, extreme points and coordinate-derived motion as applicable.",
+          "artifact": "test-results.json"
+        },
+        {
+          "id": "P10.03",
+          "action": "Sweep meaningful thresholds",
+          "method": "Vary source-transition buffers, outlier screens and matching tolerances; report when a strict filter removes all usable data.",
+          "artifact": "test-results.json"
+        },
+        {
+          "id": "P10.04",
+          "action": "Recheck within-entity contrasts",
+          "method": "Test whether the strongest normal/abnormal comparison survives stricter position, altitude, direction and source rules.",
+          "artifact": "test-results.json"
+        },
+        {
+          "id": "P10.05",
+          "action": "Recheck cross-entity timing",
+          "method": "Separate record coincidence from event onset; test sensitivity to stale records and source transitions. Exclusions may remove genuine effects.",
+          "artifact": "test-results.json"
+        },
+        {
+          "id": "P10.06",
+          "action": "Expand the cohort with a recorded rule",
+          "method": "Acquire all eligible additional histories within the bounded selection plan; preserve amendments and refresh versions.",
+          "artifact": "source-register.json"
+        },
+        {
+          "id": "P10.07",
+          "action": "Evaluate new controls",
+          "method": "Count eligible and ineligible comparisons. Zero matched controls means insufficient evidence, not healthy traffic or absence of an effect.",
+          "artifact": "test-results.json"
+        },
+        {
+          "id": "P10.08",
+          "action": "Seek another event-time publication",
+          "method": "Use another authorized archive or published viewer. Compare actual timestamps, coordinates and precision; preserve sparse manual readings as such.",
+          "artifact": "test-results.json"
+        },
+        {
+          "id": "P10.09",
+          "action": "Evaluate true source independence",
+          "method": "Record shared feeder/software possibilities. Only perform independent decoding if original messages and required metadata actually exist.",
+          "artifact": "test-results.json"
+        },
+        {
+          "id": "P10.10",
+          "action": "Test environmental and service alternatives",
+          "method": "Align official local/global environmental observations, satellite or navigation service notices and closures with the actual event windows.",
+          "artifact": "test-results.json"
+        },
+        {
+          "id": "P10.11",
+          "action": "Check stale and superseded notices",
+          "method": "Verify notice closures, future scheduled events, cached pages, missing product windows and differences between estimates and finalized measurements.",
+          "artifact": "test-results.json"
+        },
+        {
+          "id": "P10.12",
+          "action": "Record executed outcomes and blocked tests",
+          "method": "Store measured values, inputs, method and result for each executed test; preserve failure/unknown/not-applicable states without inventing a finding.",
+          "artifact": "test-results.json"
+        }
+      ]
+    },
+    {
+      "id": "P11",
+      "title": "Audit and revise conclusions",
+      "dependsOn": [
+        "P10"
+      ],
+      "steps": [
+        {
+          "id": "P11.01",
+          "action": "Recompute material numbers independently",
+          "method": "Use a separate calculation or reviewer for central counts, geometry, filters and comparisons where useful. Review discrepancies rather than voting.",
+          "artifact": "test-results.json"
+        },
+        {
+          "id": "P11.02",
+          "action": "Audit causal language",
+          "method": "Check whether the evidence supports a feed anomaly, a physical effect, a mechanism, an actor or an operational impact; do not skip levels.",
+          "artifact": "report.md"
+        },
+        {
+          "id": "P11.03",
+          "action": "Update every hypothesis",
+          "method": "Use evidence-linked supported, weakened, inconclusive, not-tested or not-applicable judgments. Avoid calibrated odds without a justified model.",
+          "artifact": "hypotheses.json"
+        },
+        {
+          "id": "P11.04",
+          "action": "Propagate corrections",
+          "method": "Supersede earlier synchronization, coverage or service-status claims wherever they matter. Preserve the historical record with explicit correction notes.",
+          "artifact": "report.md"
+        },
+        {
+          "id": "P11.05",
+          "action": "Identify the next decisive evidence",
+          "method": "Name the specific missing observation and how it would discriminate causes. Do not turn a blocked test into an unrequested outreach or monitoring task.",
+          "artifact": "report.md"
+        }
+      ]
+    },
+    {
+      "id": "P12",
+      "title": "Deliver and preserve a reusable result",
+      "dependsOn": [
+        "P11"
+      ],
+      "steps": [
+        {
+          "id": "P12.01",
+          "action": "Write the self-contained report",
+          "method": "Lead with findings and revised hypotheses, then methods, actual test outcomes, uncertainty, implications and source/reproduction information.",
+          "artifact": "report.md"
+        },
+        {
+          "id": "P12.02",
+          "action": "Verify the rendered deliverable",
+          "method": "Check tables, links, figures and timestamps. If producing PDF, render and visually inspect it. Check map/report accessibility when publishing locally.",
+          "artifact": "test-results.json"
+        },
+        {
+          "id": "P12.03",
+          "action": "Package authorized evidence",
+          "method": "Include permitted raw inputs, plans, calculations, results, source notes and a manifest. Keep credentials, personal machine paths and unrelated logs out of shared artifacts.",
+          "artifact": "manifest.json"
+        },
+        {
+          "id": "P12.04",
+          "action": "Reproduce from preserved inputs",
+          "method": "Rerun deterministic calculations in an isolated copy; compare results without refetching rolling sources or altering original evidence.",
+          "artifact": "test-results.json"
+        },
+        {
+          "id": "P12.05",
+          "action": "Verify delivery",
+          "method": "Check archive integrity and links; for Git delivery confirm the remote commit and files. State exactly what was delivered and any access limitations.",
+          "artifact": "report.md"
+        },
+        {
+          "id": "P12.06",
+          "action": "Make handoff self-contained",
+          "method": "Record workflow version, case state, revised verdicts and the next discriminating evidence so another model can resume without chat memory.",
+          "artifact": "case.json"
+        }
+      ]
+    }
+  ]
+}

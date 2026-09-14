@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "caseId": null,
+  "updatedAtUTC": null,
+  "selectionVersion": null,
+  "selectionPlans": [],
+  "sources": [],
+  "evidence": [],
+  "coverage": {
+    "assessmentStatus": "not_assessed",
+    "eligibleUnits": null,
+    "observedUnits": null,
+    "usableUnits": null,
+    "unobservableUnits": null,
+    "unitDefinition": null,
+    "denominatorDefinition": null,
+    "selectionBiases": [],
+    "missingness": [],
+    "evidenceIds": []
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "caseId": null,
+  "planId": null,
+  "version": null,
+  "recordedAtUTC": null,
+  "planTiming": "not_recorded",
+  "recordedBeforeExecution": null,
+  "selectionVersion": null,
+  "status": "draft",
+  "scopeChanges": [],
+  "amendments": [],
+  "sharedControls": {
+    "criteria": [],
+    "requiredMeasurements": [],
+    "matchingDimensions": [],
+    "tolerances": {},
+    "independenceRequirements": [],
+    "minimumCoverage": null,
+    "missingnessRules": [],
+    "exclusionRules": []
+  },
+  "tests": []
+}

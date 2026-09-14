@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "caseId": "finland-gnss-2026-09-13",
+  "evidenceScope": "Historical extracts; full provider histories and executable case calculations are not included in this public example.",
+  "originalReportSha256": "78d745ce249c2b8f411b4408a36d67b63e1c876453a7e362e907a24c2093cb1c",
+  "originalVerificationResult": "PASS",
+  "keyResults": {
+    "unique_identifiers": 20,
+    "latest_trace_points": 73310,
+    "new_identifiers": 14,
+    "refreshed_identifiers": 2,
+    "filtered_cargo_n": 59,
+    "filtered_cargo_gs_median": 66.2,
+    "filtered_cargo_span_s": 283.63,
+    "strict_match_distance_km": 1.5065232911312718,
+    "strict_match_alt_difference_ft": 0,
+    "strict_match_direction_difference_deg": 3.0,
+    "strict_match_stale_flags": [
+      false,
+      false
+    ],
+    "strict_match_source_pairs": [
+      [
+        "adsb_icao",
+        "adsb_icao"
+      ],
+      [
+        "adsb_icao",
+        "adsb_icao"
+      ]
+    ],
+    "strict_match_quality": [
+      [
+        8,
+        9,
+        2
+      ],
+      [
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  "secondPublisherRoundingChecks": [
+    {
+      "viewerTime": "2026-09-13T12:55:50Z",
+      "gevTime": "2026-09-13T12:55:50.614000+00:00",
+      "withinOneSecondOfViewerPositionEpoch": true,
+      "roundedLatitudeAgrees": true,
+      "roundedLongitudeAgrees": true,
+      "roundedGroundspeedAgrees": true,
+      "sourceLabelsAdsb": true
+    },
+    {
+      "viewerTime": "2026-09-13T12:59:53Z",
+      "gevTime": "2026-09-13T12:59:53.494000+00:00",
+      "withinOneSecondOfViewerPositionEpoch": true,
+      "roundedLatitudeAgrees": true,
+      "roundedLongitudeAgrees": true,
+      "roundedGroundspeedAgrees": true,
+      "sourceLabelsAdsb": true
+    }
+  ],
+  "verificationLimit": "This repository copy does not independently authenticate raw measurements or reproduce the original analysis without its separately preserved source archive."
+}

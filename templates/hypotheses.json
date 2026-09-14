@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "caseId": null,
+  "updatedAtUTC": null,
+  "observations": [],
+  "hypotheses": [],
+  "implications": {
+    "business": {
+      "status": "unknown",
+      "assessment": null,
+      "evidenceIds": [],
+      "assumptions": [],
+      "requiredEvidence": []
+    },
+    "military": {
+      "status": "unknown",
+      "assessment": null,
+      "evidenceIds": [],
+      "assumptions": [],
+      "requiredEvidence": []
+    }
+  }
+}

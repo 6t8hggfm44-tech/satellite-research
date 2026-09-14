@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": null,
+  "userRequest": null,
+  "domain": null,
+  "objective": null,
+  "scope": {
+    "timeUTC": {
+      "start": null,
+      "end": null,
+      "endInclusive": null
+    },
+    "region": {
+      "name": null,
+      "type": null,
+      "bboxWGS84": null,
+      "geometryGeoJSON": null,
+      "referenceFrame": null
+    },
+    "inclusions": [],
+    "exclusions": []
+  },
+  "parameters": {},
+  "workflowVersion": null,
+  "status": "draft",
+  "createdAtUTC": null,
+  "updatedAtUTC": null,
+  "execution": {
+    "started": false,
+    "completed": false,
+    "externalRequestsMade": false
+  },
+  "stages": [
+    { "id": "P01", "status": "not_started", "executed": false, "startedAtUTC": null, "endedAtUTC": null, "evidenceIds": [], "outputPaths": [], "reason": null },
+    { "id": "P02", "status": "not_started", "executed": false, "startedAtUTC": null, "endedAtUTC": null, "evidenceIds": [], "outputPaths": [], "reason": null },
+    { "id": "P03", "status": "not_started", "executed": false, "startedAtUTC": null, "endedAtUTC": null, "evidenceIds": [], "outputPaths": [], "reason": null },
+    { "id": "P04", "status": "not_started", "executed": false, "startedAtUTC": null, "endedAtUTC": null, "evidenceIds": [], "outputPaths": [], "reason": null },
+    { "id": "P05", "status": "not_started", "executed": false, "startedAtUTC": null, "endedAtUTC": null, "evidenceIds": [], "outputPaths": [], "reason": null },
+    { "id": "P06", "status": "not_started", "executed": false, "startedAtUTC": null, "endedAtUTC": null, "evidenceIds": [], "outputPaths": [], "reason": null },
+    { "id": "P07", "status": "not_started", "executed": false, "startedAtUTC": null, "endedAtUTC": null, "evidenceIds": [], "outputPaths": [], "reason": null },
+    { "id": "P08", "status": "not_started", "executed": false, "startedAtUTC": null, "endedAtUTC": null, "evidenceIds": [], "outputPaths": [], "reason": null },
+    { "id": "P09", "status": "not_started", "executed": false, "startedAtUTC": null, "endedAtUTC": null, "evidenceIds": [], "outputPaths": [], "reason": null },
+    { "id": "P10", "status": "not_started", "executed": false, "startedAtUTC": null, "endedAtUTC": null, "evidenceIds": [], "outputPaths": [], "reason": null },
+    { "id": "P11", "status": "not_started", "executed": false, "startedAtUTC": null, "endedAtUTC": null, "evidenceIds": [], "outputPaths": [], "reason": null },
+    { "id": "P12", "status": "not_started", "executed": false, "startedAtUTC": null, "endedAtUTC": null, "evidenceIds": [], "outputPaths": [], "reason": null }
+  ]
+}
